@@ -9,11 +9,12 @@
     <version>1.0-SNAPSHOT</version>
 
     <properties>
-        <maven.compiler.source>20</maven.compiler.source>
-        <maven.compiler.target>20</maven.compiler.target>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <junit.jupiter.version>5.9.2</junit.jupiter.version>
         <junit.vintage.version>5.9.2</junit.vintage.version>
+        <evosuiteVersion>1.0.6</evosuiteVersion>
     </properties>
 
     <build>
@@ -64,6 +65,7 @@
                         <param>util.*Tests</param>
                         <param>randoopTests.*Tests</param>
                         <param>randoopTests.*Test</param>
+                        <param>evosuite.*Test</param>
                     </targetTests>
                     <threads>4</threads>
                     <timestampedReports>false</timestampedReports>
@@ -73,8 +75,6 @@
                     </outputFormats>
                 </configuration>
             </plugin>
-
-
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
@@ -87,7 +87,17 @@
                     </includes>
                 </configuration>
             </plugin>
-
+            <plugin>
+                <groupId>org.evosuite.plugins</groupId>
+                <artifactId>evosuite-maven-plugin</artifactId>
+                  <version>${evosuiteVersion}</version>
+                <executions>
+                    <execution>
+                        <goals> <goal> prepare </goal> </goals>
+                        <phase> process-test-classes </phase>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
     </build>
 
@@ -110,6 +120,12 @@
             <artifactId>junit-jupiter-engine</artifactId>
             <version>${junit.jupiter.version}</version>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.evosuite</groupId>
+             <artifactId>evosuite-standalone-runtime</artifactId>
+              <version>${evosuiteVersion}</version>
+             <scope>test</scope>
         </dependency>
 
         <!-- JUnit Vintage for running JUnit 4 tests -->
