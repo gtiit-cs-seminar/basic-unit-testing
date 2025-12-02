@@ -16,9 +16,7 @@ public class ArrayAlgorithmsTest {
     @ParameterizedTest
     @MethodSource("inputsFromFile")
     void testSortWithDataFromFile(int[] inputArray) {
-        System.out.println("in: " + Arrays.toString(inputArray));
         ArrayAlgorithms.sort(inputArray);
-        System.out.println("out: " + Arrays.toString(inputArray));
         //TODO: What's the expectation?
     }
 
