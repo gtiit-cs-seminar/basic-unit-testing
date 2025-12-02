@@ -46,7 +46,7 @@ public class ArrayAlgorithms {
      * @param array is the array to be checked
      * @return true iff the array is sorted in non-decreasing order
      */
-    private boolean isSorted(int[] array) {
+    public boolean isSorted(int[] array) {
         for(int i = 0; i < array.length - 1; i++) {
             if (array[i] > array[i+1])
                 return false;
