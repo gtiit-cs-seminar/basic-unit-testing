@@ -14,13 +14,26 @@ import java.util.List;
 public class ArrayAlgorithmsTest {
 
     @ParameterizedTest
-    @MethodSource("inputsFromFile")
+    @MethodSource("inputsFromFileIntegerList")
     void testSortWithDataFromFile(int[] inputArray) {
         ArrayAlgorithms.sort(inputArray);
         //TODO: What's the expectation?
     }
 
-    private static Stream<int[]> inputsFromFile() throws IOException {
+    private static Stream<int[]> inputsFromFileIntegerList() throws IOException {
+        String filename = "/Users/diegog/repos/gtiit/seminar/copy/basic-unit-testing/numbers.txt";
+        Path filePath = Paths.get(filename);
+        List<String> lines = Files.readAllLines(filePath);
+        // fix to parse a list of integers per line like: [1, 12, 335, 4]
+        return lines.stream()
+                .filter(line -> !line.trim().isEmpty())
+                .map(line -> Arrays.stream(line.replaceAll("[\\[\\]\\s]", "").split(","))
+                        .mapToInt(Integer::parseInt)
+                        .toArray()
+                );
+     }
+
+    private static Stream<int[]> inputsFromFileOnlyDigits() throws IOException {
         String filename = "put here the filename with the fuzzed inputs";
         Path filePath = Paths.get(filename);
         List<String> lines = Files.readAllLines(filePath);
